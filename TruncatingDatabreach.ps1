@@ -56,7 +56,7 @@ while($(Get-Job -name * | where -Property State -eq Running) -ne $null){
  }
 
 #remove all env variables
-[System.Environment]::SetEnvironmentVariable('file', $null)
+[System.Environment]::SetEnvironmentVariable('file',$null)
 [System.Environment]::SetEnvironmentVariable('userfile',$null)
 [System.Environment]::SetEnvironmentVariable('passfile',$null)
 [System.Environment]::SetEnvironmentVariable('separator',$null)
