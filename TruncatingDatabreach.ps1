@@ -87,4 +87,4 @@ while($(Get-Job -name * | where -Property State -eq Running) -ne $null){
 [System.Environment]::SetEnvironmentVariable('NbrSeparator',$null)
 
 #write final line
-cls; Write-Host "`n all jobs finished in $i, very gud."
+cls; Write-Host "`n all jobs finished in $i seconds, very gud."
