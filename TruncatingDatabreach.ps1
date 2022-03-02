@@ -1,7 +1,9 @@
-﻿#define here all 3 file paths, separator char and number of separators
-[System.Environment]::SetEnvironmentVariable('userfile','.\users.txt')
-[System.Environment]::SetEnvironmentVariable('passfile','.\pass.txt')
-[System.Environment]::SetEnvironmentVariable('file','.\breach_little.txt')
+#!!!!work in local dir!!!!!
+
+#define here all 3 file paths, separator char and number of separators
+[System.Environment]::SetEnvironmentVariable('userfile','users.txt') #don't use ".\"
+[System.Environment]::SetEnvironmentVariable('passfile','pass.txt')  #don't use ".\"
+[System.Environment]::SetEnvironmentVariable('file','breach_little.txt') #don't use ".\"
 [System.Environment]::SetEnvironmentVariable('separator',':;')
 [System.Environment]::SetEnvironmentVariable('NbrSeparator','2')
 
@@ -18,26 +20,48 @@ sleep -Seconds 1
 
 #async block for user file 
 $blockUser = {
-    foreach($line in Get-Content $env:file ) {
-        if($line -match $regex){
-                    
-            $pos = $line.IndexOf($env:separator)
-            $leftPart = $line.Substring(0, $pos)
+    try
+    {
+        #open stream for read
+        $stream = [System.IO.StreamReader]::new("$pwd\"+"$env:file")
+        #open stream for write
+        $writer = [System.IO.File]::CreateText("$pwd\"+"$env:userfile")
+
+        while ($line = $stream.ReadLine())
+        {
+            #seperate line
+            $leftPart = $line.Substring(0, $($line.IndexOf($env:separator)))
             #write file
-            $leftPart | Out-File -Append -FilePath $env:userfile -Encoding ascii
+            $writer.WriteLine($leftPart)
         }
+    }
+    finally
+    {
+        $stream.Dispose()
+        $writer.Close()
     }
 }
 
 $blockPass = {
-    foreach($line in Get-Content $env:file  ) {
-        if($line -match $regex){
+    try
+    {
+        #open stream for read
+        $stream = [System.IO.StreamReader]::new("$pwd\"+"$env:file")
+        #open stream for write
+        $writer = [System.IO.File]::CreateText("$pwd\"+"$env:passfile")
 
-            $pos = $line.IndexOf($env:separator)
-            $rightPart = $line.Substring($pos+$env:NbrSeparator)
+        while ($line = $stream.ReadLine())
+        {
+            #seperate line
+            $rightPart = $line.Substring($($line.IndexOf($env:separator))+$env:NbrSeparator)
             #write file
-            $rightPart| Out-File -Append -FilePath $env:passfile -Encoding ascii
+            $writer.WriteLine($rightPart)
         }
+    }
+    finally
+    {
+        $stream.Dispose()
+        $writer.Close()
     }
 }
 
@@ -56,11 +80,11 @@ while($(Get-Job -name * | where -Property State -eq Running) -ne $null){
  }
 
 #remove all env variables
-[System.Environment]::SetEnvironmentVariable('file',$null)
+[System.Environment]::SetEnvironmentVariable('file', $null)
 [System.Environment]::SetEnvironmentVariable('userfile',$null)
 [System.Environment]::SetEnvironmentVariable('passfile',$null)
 [System.Environment]::SetEnvironmentVariable('separator',$null)
 [System.Environment]::SetEnvironmentVariable('NbrSeparator',$null)
-#write final line
-Write-Host "`n all jobs finished, very gud `n"
 
+#write final line
+cls; Write-Host "`n all jobs finished in $i, very gud."
