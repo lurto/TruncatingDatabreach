@@ -49,6 +49,7 @@ man@hotmail:;123456789
 
 ## Warning
 - The script will remove all runnings and completed powershell jobs. 
+- Work in the folder with the files
 
 ## Author
 - [@lurto](https://www.github.com/lurto)
