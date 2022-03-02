@@ -52,4 +52,4 @@ That's all.
 - The script will kill all runnings and completed powershell jobs. 
 
 ## Author
-- - [@lurto](https://www.github.com/lurto)
+- [@lurto](https://www.github.com/lurto)
