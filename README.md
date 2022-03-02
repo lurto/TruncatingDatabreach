@@ -2,7 +2,8 @@
 # TruncatingDatabreach
 
 Truncate a data breach into two files.
-####1 000 000 lines in about 25 seconds (on I5-6500)
+
+### 1 000 000 lines in about 25 seconds (on I5-6500)
 
 This can then be used as two wordlists for a brute-force attack
 
