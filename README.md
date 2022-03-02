@@ -2,6 +2,7 @@
 # TruncatingDatabreach
 
 Truncate a data breach into two files.
+#####  1 000 000 lines in about 25 seconds (on I5-6500)
 
 This can then be used as two wordlists for a brute-force attack
 
@@ -41,14 +42,11 @@ man@hotmail:;123456789
 ```
 
 ## How it works
-```bash
-In the first lines of the scipt you have to define the input file path, the two output file paths, the separators and the number of separators.
-Then in two async jobs the files will be written.
-That's all. 
-```
+- In the first lines of the scipt you have to define the input file path, the two output file paths, the separators and the number of separators.
+- Then in two async jobs the files will be written.
+- That's all. 
 
 ## Warning
-- This will use a lot of CPU power
 - The script will remove all runnings and completed powershell jobs. 
 
 ## Author
