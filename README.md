@@ -3,7 +3,7 @@
 
 Truncate a data breach into two files.
 
-This can the be used as two wordlists for a brute-force attack
+This can then be used as two wordlists for a brute-force attack
 
 Example : this will be put into two files
 ```bash
